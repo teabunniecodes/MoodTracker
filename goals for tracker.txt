@@ -1,0 +1,23 @@
+set up a program to track the moods and reasons for each day
+# limit the amount of moods to 8 preset (for now)
+    assign a color to each of the moods
+learn how to do GUI for program
+
+# create a table/sqlite database
+    # organize by date, mood, journal entry
+
+# have variables for each user input at the time of entry
+    # assigns date to the entry
+    # ask user what their mood is (preset options)
+    # ask a user for a journal entry
+
+# take the inputs from the user and insert it into the table using variables
+
+have the ability to search and view previous entries
+    by date range (year, month, week)
+    by moods within the date range
+
+display the moods in a colorful graph with each mood assigned to specific color
+    if by year shows the year in pixel option (Month x Day)
+    if by month shows a month option (TBD)
+    if by week shows a week option (TBD)

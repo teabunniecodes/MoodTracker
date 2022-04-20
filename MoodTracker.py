@@ -1,22 +1,30 @@
-import sqlite3
+from datetime import date
+import SQL_db
 
-# keep track of daily moods along with allow user to input
-def connect_db():
-    conn_db = sqlite3.connect("moodtracker.db")
-    db = conn_db.cursor()
+moods = ["Happy", "Sad", "Stressed", "Frustrated", "Angry", "Excited", "Content", "Confused"]
 
-def createTable():
-    self.connect_db()
-    db.execute("""CREATE TABLE IF NOT EXISTS mood_tracker
-            (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-            date DATETIME, mood TEXT, journal TEXT)""")
+# getting the information for the database from the users
 
-def insertData():
-    db.execute("""INSERT INTO mood_tracker
-                VALUES (1, "2022-04-19", "Excited", "Figured out how to code a 
-                SQLite database, so I am excited!")""")
+# pulls the date automatically in the correct format
+date = date.today()
 
-# db.execute("DELETE FROM mood_tracker")
+# gets user input for their mood
+# limit the moods to preset moods atm
+print(f"Are you {', '.join(moods).lower()}")
+while True:
+    # makes sure that the input matches the case of the moods
+    mood = input("What is your mood today? ").capitalize()
+    # checks to make sure that it is a valid choice
+    if mood in moods:
+        break
 
-conn_db.commit()
-conn_db.close()
+# gets user input for the reason for their mood
+journal = input(f"Why do you feel {mood.upper()}? ")
+
+# pulls the table from SQL_db and runs the methods
+database = SQL_db.MoodDatabase()
+database.connect_db()
+database.createTable()
+database.insertData(date, mood, journal)
+# database.clearTable()
+database.close_db()
