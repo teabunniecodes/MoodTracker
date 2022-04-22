@@ -1,7 +1,7 @@
 from datetime import date
 import SQL_db
 
-moods = ["Happy", "Sad", "Stressed", "Frustrated", "Angry", "Excited", "Content", "Confused"]
+moods = ["Happy", "Sad", "Stressed", "Frustrated", "Angry", "Excited", "Content", "Confused", "Tired", "Apathetic"]
 
 # getting the information for the database from the users
 
