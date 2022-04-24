@@ -13,8 +13,8 @@ class MoodDatabase:
 
     def insertData(self, date, mood, journal):
         sql = f"""INSERT INTO mood_tracker(Date, Mood, Journal)
-                    VALUES ('{date}', '{mood}', '{journal}')"""
-        self.db.execute(sql)
+                    VALUES (?, ?, ?)"""
+        self.db.execute(sql, [date, mood, journal])
 
     def clearTable(self):
         self.db.execute("DELETE FROM mood_tracker")
