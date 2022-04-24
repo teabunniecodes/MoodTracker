@@ -19,7 +19,7 @@ while True:
         break
 
 # gets user input for the reason for their mood
-journal = input(f"Why do you feel {mood.upper()}? ")
+journal = input(f"Why do you feel {mood.lower()}? ")
 
 # pulls the table from SQL_db and runs the methods
 database = SQL_db.MoodDatabase()
