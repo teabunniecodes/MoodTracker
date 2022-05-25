@@ -1,0 +1,5 @@
+- refactor the code for more usaablity between cli & gui
+- GUI
+- in GUI: migrate automatically if the database file does not exist
+- view enteries
+- filter enteries by date
