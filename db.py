@@ -1,16 +1,16 @@
 import sqlite3
 
-class Core:
+class DatabaseCore:
     def dict_factory(cursor, row):
         d = {}
         for idx, col in enumerate(cursor.description):
             d[col[0]] = row[idx]
         return d
 
-class Mood:
+class MoodTracker:
     def connect(self):
         self.con = sqlite3.connect("./moodtracker.db")
-        self.con.row_factory = Core.dict_factory
+        self.con.row_factory = DatabaseCore.dict_factory
         self.cur = self.con.cursor()
 
     def createTables(self):
@@ -51,12 +51,16 @@ class Mood:
         self.cur.execute(f"""INSERT INTO tracker (datetime, mood_id, journal) VALUES (?, ?, ?)""", [datetime, int(mood_id), journal])
         return self.cur.lastrowid
 
+    def fetchTrackers(self):
+        self.cur.execute(f"""SELECT * FROM tracker""")
+        return self.cur.fetchall()
+
     def fetchMoods(self):
         self.cur.execute(f"""SELECT * FROM moods""")
         return self.cur.fetchall()
 
     def fetchMoodById(self, id):
-        self.cur.execute(f"""SELECT * FROM moods WHERE id = ?""", [id])
+        self.cur.execute(f"""SELECT * FROM moods WHERE id = ?""", [int(id)])
         return self.cur.fetchone()
 
     def fetchMood(self, mood):
