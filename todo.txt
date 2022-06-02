@@ -1,3 +1,1 @@
-- filter enteries by date (show all enteries in specific date -use LIKE query)
-- GUI
-- in GUI: migrate automatically if the database file does not exist
+- filter/search enteries by date (show all enteries in specific date -use LIKE query)
