@@ -1,5 +1,7 @@
 import datetime
 
+DB_FILE = './db/moodtracker.db'
+
 # get the current datetime in YYYY-mm-dd HH:ii:ss format
 def current_datetime():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

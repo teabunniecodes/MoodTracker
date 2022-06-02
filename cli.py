@@ -7,9 +7,6 @@ import db
 
 # record user's mood (insert into tracker table)
 def record_mood():
-    # get the current datetime
-    curr_datetime = core.current_datetime()
-
     # get the moods as a list of strings
     moods = core.map_moods_text_as_list(database.fetchMoods())
 
@@ -44,7 +41,7 @@ def record_mood():
     # insert the current mood in the tracker table in the database,
     # if there's an error, show it and exit the app
     try:
-        database.insertTracker(curr_datetime, mood_id, journal)
+        database.insertTracker(mood_id, journal)
         print("[+] Your current mood has been recorded")
     except Exception as ex:
         print("[-] Error while recording the tracker (your current mood) in the database")
@@ -52,6 +49,7 @@ def record_mood():
         sys.exit(-1)
 
     # commit and close the database
+    database.commit()
     database.close()
 
 # view all user's entries'
@@ -66,11 +64,11 @@ def view_entries():
     print(table)
     print("=============================================================")
 
-# main entry to the program
+# main entry to the app
 if __name__ == "__main__":
     # ensure that the database file is exist,
     # otherwise, you need to migrate first
-    if not os.path.exists("./moodtracker.db"):
+    if not os.path.exists(core.DB_FILE):
         print("[!] Please migrate first using `python migrate.py`")
         sys.exit(-1)
 

@@ -1,4 +1,5 @@
 import sqlite3
+import core
 
 class DatabaseCore:
     def dict_factory(cursor, row):
@@ -9,7 +10,7 @@ class DatabaseCore:
 
 class MoodTracker:
     def connect(self):
-        self.con = sqlite3.connect("./moodtracker.db")
+        self.con = sqlite3.connect(core.DB_FILE)
         self.con.row_factory = DatabaseCore.dict_factory
         self.cur = self.con.cursor()
 
@@ -47,7 +48,8 @@ class MoodTracker:
         self.cur.execute(f"""INSERT INTO moods (mood) VALUES (?)""", [mood])
         return self.cur.lastrowid
 
-    def insertTracker(self, datetime, mood_id, journal):
+    def insertTracker(self, mood_id, journal):
+        datetime = core.current_datetime()
         self.cur.execute(f"""INSERT INTO tracker (datetime, mood_id, journal) VALUES (?, ?, ?)""", [datetime, int(mood_id), journal])
         return self.cur.lastrowid
 
@@ -67,6 +69,8 @@ class MoodTracker:
         self.cur.execute(f"""SELECT * FROM moods WHERE mood = ?""", [mood])
         return self.cur.fetchone()
 
-    def close(self):
+    def commit(self):
         self.con.commit()
+
+    def close(self):
         self.con.close()
