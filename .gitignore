@@ -1,2 +1,2 @@
-moodtracker.db
+*.db
 __pycache__/
